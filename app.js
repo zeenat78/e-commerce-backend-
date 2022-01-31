@@ -26,7 +26,17 @@ app.use("/api",categoryRoute)
 app.use("/api",productRoute)
 app.use("/api",orderRoute)
 
-
+app.use(express.static(path.join(__dirname,"../projfrontend/build")))
+app.get("*",function(_,res){
+    res.sendFile(
+        path.join(__dirname,"../projfrontend/build/index.html"),
+        function(err){
+            if(err){
+                res.status(500).send(err)
+            }
+        }
+    )
+})
 const port = process.env.PORT || 8000;
 //listening to the server
 app.listen(port,()=>{
